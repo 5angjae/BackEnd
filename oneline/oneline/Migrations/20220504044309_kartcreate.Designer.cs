@@ -8,8 +8,8 @@ using oneline.Data;
 namespace oneline.Migrations
 {
     [DbContext(typeof(OneLineContext))]
-    [Migration("20220329044853_NewMigration1")]
-    partial class NewMigration1
+    [Migration("20220504044309_kartcreate")]
+    partial class kartcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,26 @@ namespace oneline.Migrations
                     b.HasIndex("WorldIdx");
 
                     b.ToTable("Achievements");
+                });
+
+            modelBuilder.Entity("oneline.Models.Kart", b =>
+                {
+                    b.Property<int>("KartIdx")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<float>("LabTime")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("KartIdx");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Karts");
                 });
 
             modelBuilder.Entity("oneline.Models.Quest", b =>
@@ -160,6 +180,15 @@ namespace oneline.Migrations
                     b.Navigation("World");
                 });
 
+            modelBuilder.Entity("oneline.Models.Kart", b =>
+                {
+                    b.HasOne("oneline.Models.User", "User")
+                        .WithOne("Kart")
+                        .HasForeignKey("oneline.Models.Kart", "UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("oneline.Models.Quest", b =>
                 {
                     b.HasOne("oneline.Models.World", "World")
@@ -196,6 +225,8 @@ namespace oneline.Migrations
             modelBuilder.Entity("oneline.Models.User", b =>
                 {
                     b.Navigation("Achievements");
+
+                    b.Navigation("Kart");
 
                     b.Navigation("Scores");
                 });

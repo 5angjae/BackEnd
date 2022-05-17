@@ -14,6 +14,7 @@ namespace oneline.Models
         public string UserName { get; set; }
         public string UserContent { get; set; }
         public string UserImg { get; set; }
+        public Kart Kart { get; set; }
         public ICollection<Score> Scores { get; set; }
         public ICollection<Achievement> Achievements { get; set; }
     }

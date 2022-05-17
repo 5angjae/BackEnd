@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace oneline.Migrations
 {
-    public partial class NewMigration1 : Migration
+    public partial class kartcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,6 +49,28 @@ namespace oneline.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Worlds", x => x.WorldIdx);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Karts",
+                columns: table => new
+                {
+                    KartIdx = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    LabTime = table.Column<float>(type: "float", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Karts", x => x.KartIdx);
+                    table.ForeignKey(
+                        name: "FK_Karts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -154,6 +176,12 @@ namespace oneline.Migrations
                 column: "WorldIdx");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Karts_UserId",
+                table: "Karts",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Quests_WorldIdx",
                 table: "Quests",
                 column: "WorldIdx");
@@ -173,6 +201,9 @@ namespace oneline.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Achievements");
+
+            migrationBuilder.DropTable(
+                name: "Karts");
 
             migrationBuilder.DropTable(
                 name: "Scores");

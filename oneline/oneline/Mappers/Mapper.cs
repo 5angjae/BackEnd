@@ -20,6 +20,7 @@ namespace oneline.Mappers
             CreateMap<Quest, QuestDto>().ReverseMap();
             CreateMap<World, WorldDto>().ReverseMap();
             CreateMap<World, WorldListDto>().ReverseMap();
+            CreateMap<Kart, KartRegDto>().ReverseMap();
         }
     }
 }

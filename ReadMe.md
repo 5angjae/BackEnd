@@ -33,6 +33,8 @@ mysql workbench 설치 후, root 비밀번호 설정
 
  `dotnet tool install --global dotnet-ef --version 5.0.1`
 
+`dotnet ef migration add [name]` : 마이그레이션 할때만
+
 `dotnet ef database update`
 
 
@@ -67,11 +69,21 @@ value
 
 
 
-### 배포 전에 고쳐야 할 부분
+### 새 테이블 생성 시, 코드 짜는 순서
 
-Quest table 에 QuestIdx를 QeustIdx로 오타가 났다.
+Model 에 테이블 추가
 
-다른 부분 다 오타를 수정해야하긴 한데, AWS에 올린 DB에 마이그레이션 하기 전에 수정하고 올릴 것.
+Context 파일에 추가된 테이블에 대한 정보 추가 - 여기부터 해야함
+
+Dto 추가
+
+Mapper에 Model - Dto mapping
+
+Repository에 필요한 메서드 작성
+
+Controller에 추가
+
+
 
 
 

@@ -45,6 +45,12 @@ namespace oneline.Data
                 .HasOne<World>(s => s.World)
                 .WithMany(g => g.Quests)
                 .HasForeignKey(s => s.WorldIdx);
+
+            modelBuilder.Entity<User>()
+                .HasOne(s => s.Kart)
+                .WithOne(g => g.User)
+                .HasForeignKey<Kart>(s => s.UserId);
+
         }
 
         public DbSet<Achievement> Achievements { get; set; }
@@ -52,5 +58,7 @@ namespace oneline.Data
         public DbSet<Score> Scores { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<World> Worlds { get; set; }
+        public DbSet<Kart> Karts { get; set; }
+
     }
 }
